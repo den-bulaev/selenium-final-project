@@ -19,7 +19,7 @@ class ProductPage(BasePage):
         assert self.is_element_present(*ProductPageLocators.ADDING_MESSAGE), "adding message is not presented"
         name = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME).text
         message = self.browser.find_element(*ProductPageLocators.PRODUCT_NAME_MESSAGE).text
-        assert name in message, "wrong product name in message"
+        assert name == message, "wrong product name in message"
 
     def basket_total_price_is_correct(self):
         assert self.is_element_present(*ProductPageLocators.PRODUCT_PRICE), "no any price here"
