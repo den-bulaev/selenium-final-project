@@ -9,7 +9,7 @@ class ProductPage(BasePage):
         self.product_name_in_basket_is_correct()
         self.basket_total_price_is_correct()
 
-    def go_to_product_page(self):
+    def add_to_basket(self):
         assert self.is_element_present(*ProductPageLocators.BUTTON), "button is missing"
         btn = self.browser.find_element(*ProductPageLocators.BUTTON)
         btn.click()
@@ -28,3 +28,11 @@ class ProductPage(BasePage):
         price = self.browser.find_element(*ProductPageLocators.PRODUCT_PRICE).text
         message = self.browser.find_element(*ProductPageLocators.TOTAL_PRICE_MESSAGE).text
         assert message == price, "wrong price in message"
+
+    def should_not_be_success_message(self):
+        assert self.is_not_element_present(*ProductPageLocators.ADDING_MESSAGE),\
+            "success message is presented, but should not to be"
+
+    def element_should_be_fade(self):
+        assert self.is_disappeared(*ProductPageLocators.ADDING_MESSAGE),\
+            "element is not fade"
