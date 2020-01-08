@@ -1,7 +1,8 @@
 from pages.product_page import ProductPage
+from pages.basket_page import BasketPage
 import pytest
 
-link = "http://selenium1py.pythonanywhere.com/ru/catalogue/coders-at-work_207/"
+link = "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/"
 
 
 @pytest.mark.parametrize('promo', ["0", "1", "2", "3", "4", "5", "6",
@@ -54,3 +55,13 @@ def test_guest_can_go_to_login_page_from_product_page(browser):
     page = ProductPage(browser, link)
     page.open()
     page.go_to_login_page()
+
+
+@pytest.mark.basket
+def test_guest_cant_see_product_in_basket_opened_from_product_page(browser):
+    page = ProductPage(browser, link)
+    page.open()
+    page.go_to_basket()
+    page2 = BasketPage(browser, browser.current_url)
+    page2.basket_should_be_empty()
+    page2.must_be_text_that_the_basket_is_empty()
